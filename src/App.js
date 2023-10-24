@@ -1,22 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { FilterTwo} from './components/Sidebar';
-// import { FilterOne } from './components/Filter';
-import { PaginationOne } from './components/Pagination';
-import JobComponent from './components/JobComponent';
-import Card2 from './components/Card2';
+import ApplyPage from './components/ApplyPage';
+
+
+
+
 
 function App() {
   return (
-    <div>
-    <div>
-      <FilterTwo />
-      {/* <JobComponent/> */}
-      <Card2 />
-    </div>
-    
-    <PaginationOne />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<FilterTwo/>} />
+        <Route path="/job/:jobId" element={<ApplyPage/>} />
+      </Routes>
+    </Router>
   );
 }
 

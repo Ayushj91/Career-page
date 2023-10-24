@@ -5,8 +5,8 @@ const path = require('path');
 const app = express();
 const keys=["IT Support Specialist", "Product Designer" ]
 const ExperienceLevel = ["Intern", "Entry Level", "Associate", "Mid-Senior Level", "Director", "Executive"];
-// Connect to MongoDB
 app.use(cors());
+
 const mongoDB = 'mongodb://127.0.0.1:27017/Jobs-Data';
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
@@ -19,18 +19,8 @@ mongoose.connect(mongoDB, {
     console.error(err);
   });
 
-// Serve the React app from the build directory
-app.use(express.static('C:\Users\ayush\OneDrive\Desktop\Web DEV\careers-page\build\index.html'));
-
-// Handle all other routes by serving the index.html
-app.get('/', (req, res) => {
-  res.sendFile('C:\Users\ayush\OneDrive\Desktop\Web DEV\careers-page\build\index.html');
-});
-
-// Define a Job model and create a new job
 const Job = require('./models/Job');
 
-// Use async/await to fetch jobs
 app.get('/api/jobs', async (req, res) => {
   try {
     const jobs = await Job.find({ experienceLevel : { $in: ExperienceLevel } });

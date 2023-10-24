@@ -16,15 +16,6 @@ export function FilterTwo() {
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [selectedExperienceLevel, setSelectedExperienceLevel] = useState([]);
 
-  const jobData = {
-    title: 'IT Support Specialist',
-    shortDescription: 'Provide technical support and assistance to our IT team and employees.',
-    type: 'Full-time',
-    department: 'IT/Technology',
-    location: 'Remote',
-    experienceLevel: 'Entry Level',
-  };
-
   const toggleJobType = () => {
     setIsJobTypeOpen(!isJobTypeOpen);
   };
@@ -60,36 +51,41 @@ export function FilterTwo() {
         return prevSelectedDepartment.filter((item) => item !== e.target.value);
       }
     });
-  }
+  };
 
-    const handleLocation = (e) => {
-        setSelectedLocation((prevSelectedLocation) => {
-            if (e.target.checked) {
-            return [...prevSelectedLocation, e.target.value];
-            } else {
-            return prevSelectedLocation.filter((item) => item !== e.target.value);
-            }
-        });
-        }
+  const handleLocation = (e) => {
+    setSelectedLocation((prevSelectedLocation) => {
+      if (e.target.checked) {
+        return [...prevSelectedLocation, e.target.value];
+      } else {
+        return prevSelectedLocation.filter((item) => item !== e.target.value);
+      }
+    });
+  };
 
-    const handleExperienceLevel = (e) => {
-        setSelectedExperienceLevel((prevSelectedExperienceLevel) => {
-            if (e.target.checked) {
-            return [...prevSelectedExperienceLevel, e.target.value];
-            } else {
-            return prevSelectedExperienceLevel.filter((item) => item !== e.target.value);
-            }
-        });
-        }
+  const handleExperienceLevel = (e) => {
+    setSelectedExperienceLevel((prevSelectedExperienceLevel) => {
+      if (e.target.checked) {
+        return [...prevSelectedExperienceLevel, e.target.value];
+      } else {
+        return prevSelectedExperienceLevel.filter(
+          (item) => item !== e.target.value
+        );
+      }
+    });
+  };
 
-    useEffect(() => {
-        console.log(selectedJobType);
-        console.log(selectedDepartment);
-        console.log(selectedLocation);
-        console.log(selectedExperienceLevel);
-    }, [selectedJobType, selectedDepartment, selectedLocation, selectedExperienceLevel]);
-
-  
+  useEffect(() => {
+    console.log(selectedJobType);
+    console.log(selectedDepartment);
+    console.log(selectedLocation);
+    console.log(selectedExperienceLevel);
+  }, [
+    selectedJobType,
+    selectedDepartment,
+    selectedLocation,
+    selectedExperienceLevel,
+  ]);
 
   return (
     <section className="w-full h-full flex flex-col p-4">
@@ -97,13 +93,6 @@ export function FilterTwo() {
       <div className="md:flex md:flex-row md:items-start md:justify-between">
         <h1 className=" font-bold text-5xl">Careers</h1>
         <div className="mt-6 flex items-center pt-2 md:mt-0 md:space-x-4 md:pt-0">
-          <button
-            type="button"
-            className="hidden items-center rounded-md px-3 py-2 text-sm font-semibold text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black lg:inline-flex text-2xl"
-            onClick={toggleSort}
-          >
-            Sort <ChevronDown className="ml-2 h-4 w-4" />
-          </button>
           {isSortOpen && (
             <div className="relative group">
               <div className="absolute right-0 top-8 z-10 w-64 mt-2 origin-top-right rounded-md shadow-lg">
@@ -164,7 +153,12 @@ export function FilterTwo() {
             Data.JobTypes.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" onChange={handleJobType} value={item} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    onChange={handleJobType}
+                    value={item}
+                  />
                   {item}
                 </label>
               </div>
@@ -189,7 +183,12 @@ export function FilterTwo() {
             Data.Department.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" value={item} onChange={handleDepartment}/>
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    value={item}
+                    onChange={handleDepartment}
+                  />
                   {item}
                 </label>
               </div>
@@ -214,7 +213,12 @@ export function FilterTwo() {
             Data.Location.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" value={item} onChange={handleLocation} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    value={item}
+                    onChange={handleLocation}
+                  />
                   {item}
                 </label>
               </div>
@@ -238,16 +242,29 @@ export function FilterTwo() {
             Data.ExperienceLevel.map((item, index) => (
               <div key={index}>
                 <label>
-                  <input type="checkbox" className="mr-2 ml-6" onChange={handleExperienceLevel} value={item} />
+                  <input
+                    type="checkbox"
+                    className="mr-2 ml-6"
+                    onChange={handleExperienceLevel}
+                    value={item}
+                  />
                   {item}
                 </label>
               </div>
             ))}
         </div>
         <div>
-        <CardFour jobData={jobData} />
-        
-      </div>
+          <CardFour
+            isDepartment={isDepartmentOpen}
+            isLocation={isLocationOpen}
+            isExperienceLevel={isExperienceLevelOpen}
+            isJobType={isJobTypeOpen}
+            department={selectedDepartment}
+            jobType={selectedJobType}
+            location={selectedLocation}
+            experienceLevel={selectedExperienceLevel}
+          />
+        </div>
       </div>
     </section>
   );
